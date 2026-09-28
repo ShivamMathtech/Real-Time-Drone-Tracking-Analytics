@@ -1,0 +1,1976 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MathTech Drone Vision",
+    "description": "Civilian UAV vision and image-space motion analytics. One shared source per deployment.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/models": {
+      "get": {
+        "summary": "Models",
+        "operationId": "models_api_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/models/load": {
+      "post": {
+        "summary": "Load Model",
+        "operationId": "load_model_api_models_load_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/video/upload": {
+      "post": {
+        "summary": "Upload Video",
+        "operationId": "upload_video_api_video_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_video_api_video_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/models/upload": {
+      "post": {
+        "summary": "Upload Model",
+        "operationId": "upload_model_api_models_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_model_api_models_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/source/start": {
+      "post": {
+        "summary": "Start Source",
+        "operationId": "start_source_api_source_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Packet"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/source/stop": {
+      "post": {
+        "summary": "Stop Source",
+        "operationId": "stop_source_api_source_stop_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/source/playback": {
+      "post": {
+        "summary": "Playback",
+        "operationId": "playback_api_source_playback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlaybackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracking/start": {
+      "post": {
+        "summary": "Start Tracking",
+        "operationId": "start_tracking_api_tracking_start_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracking/stop": {
+      "post": {
+        "summary": "Stop Tracking",
+        "operationId": "stop_tracking_api_tracking_stop_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracking/reset": {
+      "post": {
+        "summary": "Reset Tracking",
+        "operationId": "reset_tracking_api_tracking_reset_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracking/history/clear": {
+      "post": {
+        "summary": "Clear History",
+        "operationId": "clear_history_api_tracking_history_clear_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracking/select": {
+      "post": {
+        "summary": "Select Track",
+        "operationId": "select_track_api_tracking_select_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SelectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracks": {
+      "get": {
+        "summary": "Tracks",
+        "operationId": "tracks_api_tracks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Track"
+                  },
+                  "type": "array",
+                  "title": "Response Tracks Api Tracks Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tracks/{track_id}": {
+      "get": {
+        "summary": "Track",
+        "operationId": "track_api_tracks__track_id__get",
+        "parameters": [
+          {
+            "name": "track_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Track Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Track"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings": {
+      "get": {
+        "summary": "Settings",
+        "operationId": "settings_api_settings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Settings"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Settings",
+        "operationId": "update_settings_api_settings_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Settings"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Settings"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/telemetry": {
+      "post": {
+        "summary": "Telemetry",
+        "operationId": "telemetry_api_telemetry_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TelemetryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/logs": {
+      "get": {
+        "summary": "Logs",
+        "operationId": "logs_api_logs_get",
+        "parameters": [
+          {
+            "name": "level",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "INFO",
+                    "WARNING",
+                    "ERROR"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Level"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "After"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LogEntry"
+                  },
+                  "title": "Response Logs Api Logs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/session/record": {
+      "post": {
+        "summary": "Record",
+        "operationId": "record_api_session_record_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/session/save": {
+      "post": {
+        "summary": "Save Session",
+        "operationId": "save_session_api_session_save_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sessions": {
+      "get": {
+        "summary": "Sessions",
+        "operationId": "sessions_api_sessions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SessionInfo"
+                  },
+                  "type": "array",
+                  "title": "Response Sessions Api Sessions Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/session/{session_id}": {
+      "get": {
+        "summary": "Session",
+        "operationId": "session_api_session__session_id__get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 300,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Session",
+        "operationId": "delete_session_api_session__session_id__delete",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/session/{session_id}/frame/{frame_index}": {
+      "get": {
+        "summary": "Session Frame",
+        "operationId": "session_frame_api_session__session_id__frame__frame_index__get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "frame_index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Frame Index"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/export/{session_id}": {
+      "get": {
+        "summary": "Export",
+        "operationId": "export_api_export__session_id__get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "csv",
+                "json",
+                "report"
+              ],
+              "type": "string",
+              "default": "csv",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asset": {
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "title": "Asset Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "width": {
+            "type": "integer",
+            "title": "Width"
+          },
+          "height": {
+            "type": "integer",
+            "title": "Height"
+          },
+          "fps": {
+            "type": "number",
+            "title": "Fps"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "codec": {
+            "type": "string",
+            "title": "Codec"
+          }
+        },
+        "type": "object",
+        "required": [
+          "asset_id",
+          "name",
+          "width",
+          "height",
+          "fps",
+          "duration",
+          "codec"
+        ],
+        "title": "Asset"
+      },
+      "Body_upload_model_api_models_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_model_api_models_upload_post"
+      },
+      "Body_upload_video_api_video_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_video_api_video_upload_post"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "device": {
+            "type": "string",
+            "title": "Device"
+          },
+          "model_ready": {
+            "type": "boolean",
+            "title": "Model Ready"
+          },
+          "authentication": {
+            "type": "boolean",
+            "title": "Authentication"
+          },
+          "engine_status": {
+            "type": "string",
+            "title": "Engine Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "version",
+          "device",
+          "model_ready",
+          "authentication",
+          "engine_status"
+        ],
+        "title": "Health"
+      },
+      "LogEntry": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "timestamp": {
+            "type": "number",
+            "title": "Timestamp"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "timestamp",
+          "level",
+          "category",
+          "message"
+        ],
+        "title": "LogEntry"
+      },
+      "ModelInfo": {
+        "properties": {
+          "loaded": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loaded"
+          },
+          "device": {
+            "type": "string",
+            "title": "Device"
+          },
+          "files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Files"
+          },
+          "classes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Classes"
+          },
+          "segmentation": {
+            "type": "boolean",
+            "title": "Segmentation"
+          },
+          "pt_upload_enabled": {
+            "type": "boolean",
+            "title": "Pt Upload Enabled"
+          },
+          "deepsort_available": {
+            "type": "boolean",
+            "title": "Deepsort Available"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loaded",
+          "device",
+          "files",
+          "classes",
+          "segmentation",
+          "pt_upload_enabled",
+          "deepsort_available"
+        ],
+        "title": "ModelInfo"
+      },
+      "ModelRequest": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "maxLength": 180,
+            "minLength": 1,
+            "title": "Filename"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "filename"
+        ],
+        "title": "ModelRequest"
+      },
+      "Packet": {
+        "properties": {
+          "seq": {
+            "type": "integer",
+            "title": "Seq",
+            "default": 0
+          },
+          "timestamp": {
+            "type": "number",
+            "title": "Timestamp",
+            "default": 0
+          },
+          "video_time": {
+            "type": "number",
+            "title": "Video Time",
+            "default": 0
+          },
+          "fps": {
+            "type": "number",
+            "title": "Fps",
+            "default": 0
+          },
+          "latency_ms": {
+            "type": "number",
+            "title": "Latency Ms",
+            "default": 0
+          },
+          "processing_ms": {
+            "type": "number",
+            "title": "Processing Ms",
+            "default": 0
+          },
+          "frame_index": {
+            "type": "integer",
+            "title": "Frame Index",
+            "default": 0
+          },
+          "width": {
+            "type": "integer",
+            "title": "Width",
+            "default": 960
+          },
+          "height": {
+            "type": "integer",
+            "title": "Height",
+            "default": 540
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "none"
+          },
+          "source_label": {
+            "type": "string",
+            "title": "Source Label",
+            "default": "No source"
+          },
+          "data_source": {
+            "type": "string",
+            "title": "Data Source",
+            "default": "vision"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "idle"
+          },
+          "tracking": {
+            "type": "boolean",
+            "title": "Tracking",
+            "default": false
+          },
+          "recording": {
+            "type": "boolean",
+            "title": "Recording",
+            "default": false
+          },
+          "playback_speed": {
+            "type": "number",
+            "title": "Playback Speed",
+            "default": 1
+          },
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "default": "No model loaded"
+          },
+          "device": {
+            "type": "string",
+            "title": "Device",
+            "default": "CPU"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "selected_track": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Track"
+          },
+          "objects": {
+            "items": {
+              "$ref": "#/components/schemas/Track"
+            },
+            "type": "array",
+            "title": "Objects",
+            "default": []
+          },
+          "telemetry": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/TelemetryValue"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Telemetry",
+            "default": {}
+          },
+          "statistics": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Statistics",
+            "default": {}
+          },
+          "frame": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frame"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "title": "Packet"
+      },
+      "PlaybackRequest": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "play",
+              "pause",
+              "seek",
+              "speed"
+            ],
+            "title": "Action"
+          },
+          "value": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Value",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action"
+        ],
+        "title": "PlaybackRequest"
+      },
+      "Point": {
+        "properties": {
+          "x": {
+            "type": "number",
+            "title": "X"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y"
+          },
+          "timestamp": {
+            "type": "number",
+            "title": "Timestamp"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "x",
+          "y",
+          "timestamp"
+        ],
+        "title": "Point"
+      },
+      "RecordRequest": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enabled"
+        ],
+        "title": "RecordRequest"
+      },
+      "Result": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok",
+            "default": true
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "Result"
+      },
+      "SaveRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "default": "Untitled research session"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SaveRequest"
+      },
+      "SelectionRequest": {
+        "properties": {
+          "track_id": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SelectionRequest"
+      },
+      "SessionDetail": {
+        "properties": {
+          "session": {
+            "$ref": "#/components/schemas/SessionInfo"
+          },
+          "frames": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Frames"
+          },
+          "next_offset": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "session",
+          "frames",
+          "next_offset"
+        ],
+        "title": "SessionDetail"
+      },
+      "SessionInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "started_at": {
+            "type": "number",
+            "title": "Started At"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "algorithm": {
+            "type": "string",
+            "title": "Algorithm"
+          },
+          "saved": {
+            "type": "boolean",
+            "title": "Saved"
+          },
+          "frame_count": {
+            "type": "integer",
+            "title": "Frame Count"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "statistics": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Statistics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "started_at",
+          "ended_at",
+          "source",
+          "model",
+          "algorithm",
+          "saved",
+          "frame_count",
+          "metadata",
+          "statistics"
+        ],
+        "title": "SessionInfo"
+      },
+      "Settings": {
+        "properties": {
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.05,
+            "title": "Confidence",
+            "default": 0.6
+          },
+          "iou": {
+            "type": "number",
+            "maximum": 0.95,
+            "minimum": 0.1,
+            "title": "Iou",
+            "default": 0.45
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "bytetrack",
+              "deepsort"
+            ],
+            "title": "Algorithm",
+            "default": "bytetrack"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "single",
+              "multi"
+            ],
+            "title": "Mode",
+            "default": "multi"
+          },
+          "auto_tracking": {
+            "type": "boolean",
+            "title": "Auto Tracking",
+            "default": true
+          },
+          "kalman": {
+            "type": "boolean",
+            "title": "Kalman",
+            "default": true
+          },
+          "trail_length": {
+            "type": "integer",
+            "maximum": 500.0,
+            "minimum": 0.0,
+            "title": "Trail Length",
+            "default": 100
+          },
+          "lost_timeout": {
+            "type": "number",
+            "maximum": 15.0,
+            "minimum": 0.2,
+            "title": "Lost Timeout",
+            "default": 2
+          },
+          "max_objects": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Max Objects",
+            "default": 20
+          },
+          "fps_limit": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 1.0,
+            "title": "Fps Limit",
+            "default": 20
+          },
+          "processing_width": {
+            "type": "integer",
+            "maximum": 1920.0,
+            "minimum": 320.0,
+            "title": "Processing Width",
+            "default": 960
+          },
+          "frame_skip": {
+            "type": "integer",
+            "maximum": 15.0,
+            "minimum": 0.0,
+            "title": "Frame Skip",
+            "default": 0
+          },
+          "telemetry_source": {
+            "type": "string",
+            "enum": [
+              "none",
+              "simulation",
+              "custom"
+            ],
+            "title": "Telemetry Source",
+            "default": "none"
+          },
+          "telemetry_refresh_hz": {
+            "type": "integer",
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Telemetry Refresh Hz",
+            "default": 10
+          },
+          "theme": {
+            "type": "string",
+            "enum": [
+              "dark",
+              "light"
+            ],
+            "title": "Theme",
+            "default": "dark"
+          },
+          "units": {
+            "type": "string",
+            "const": "px",
+            "title": "Units",
+            "default": "px"
+          },
+          "language": {
+            "type": "string",
+            "const": "en",
+            "title": "Language",
+            "default": "en"
+          },
+          "worker_count": {
+            "type": "integer",
+            "const": 1,
+            "title": "Worker Count",
+            "default": 1
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "cpu",
+              "cuda"
+            ],
+            "title": "Device",
+            "default": "auto"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Settings"
+      },
+      "SourceRequest": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "demo",
+              "file",
+              "webcam",
+              "rtsp",
+              "backend_camera"
+            ],
+            "title": "Kind"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "camera_index": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Camera Index",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind"
+        ],
+        "title": "SourceRequest"
+      },
+      "TelemetryInput": {
+        "properties": {
+          "track_id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Track Id"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TelemetryValue"
+            },
+            "type": "object",
+            "title": "Metrics"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "track_id",
+          "metrics"
+        ],
+        "title": "TelemetryInput"
+      },
+      "TelemetryValue": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "maxLength": 20,
+            "title": "Unit"
+          },
+          "timestamp": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Timestamp"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "telemetry",
+              "simulation",
+              "vision"
+            ],
+            "title": "Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "value",
+          "unit",
+          "timestamp",
+          "source"
+        ],
+        "title": "TelemetryValue"
+      },
+      "Track": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "class_name": {
+            "type": "string",
+            "title": "Class Name",
+            "default": "drone"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "bbox": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Bbox"
+          },
+          "center": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Center"
+          },
+          "timestamp": {
+            "type": "number",
+            "title": "Timestamp"
+          },
+          "velocity": {
+            "$ref": "#/components/schemas/Velocity"
+          },
+          "direction": {
+            "type": "number",
+            "title": "Direction"
+          },
+          "angular_velocity": {
+            "type": "number",
+            "title": "Angular Velocity",
+            "default": 0
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            },
+            "type": "array",
+            "title": "History",
+            "default": []
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "tracking",
+              "lost"
+            ],
+            "title": "Status",
+            "default": "tracking"
+          },
+          "duration": {
+            "type": "number",
+            "title": "Duration",
+            "default": 0
+          },
+          "path_length": {
+            "type": "number",
+            "title": "Path Length",
+            "default": 0
+          },
+          "avg_speed": {
+            "type": "number",
+            "title": "Avg Speed",
+            "default": 0
+          },
+          "max_speed": {
+            "type": "number",
+            "title": "Max Speed",
+            "default": 0
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "vision",
+              "simulation"
+            ],
+            "title": "Source",
+            "default": "vision"
+          },
+          "predicted_center": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Predicted Center"
+          },
+          "mask": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mask"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "confidence",
+          "bbox",
+          "center",
+          "timestamp",
+          "velocity",
+          "direction"
+        ],
+        "title": "Track"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Velocity": {
+        "properties": {
+          "x": {
+            "type": "number",
+            "title": "X",
+            "default": 0
+          },
+          "y": {
+            "type": "number",
+            "title": "Y",
+            "default": 0
+          },
+          "speed": {
+            "type": "number",
+            "title": "Speed",
+            "default": 0
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "default": "px/s"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "vision",
+              "simulation"
+            ],
+            "title": "Source",
+            "default": "vision"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Velocity"
+      }
+    }
+  }
+}
