@@ -1,0 +1,2 @@
+# Optional appearance tracker. No person re-identification network is used.
+deep-sort-realtime==1.3.2
