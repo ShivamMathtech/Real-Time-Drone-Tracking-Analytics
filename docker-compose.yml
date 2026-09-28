@@ -1,0 +1,60 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://dronevision:${POSTGRES_PASSWORD:-local_dronevision_change_me}@database:5432/dronevision
+      DATA_DIR: /app/data
+      MODEL_DIR: /app/models
+      MODEL_PATH: ${MODEL_PATH:-}
+      DEVICE: ${DEVICE:-auto}
+      API_KEY: ${API_KEY:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080,http://127.0.0.1:8080}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-500}
+      MAX_MODEL_MB: ${MAX_MODEL_MB:-250}
+      MAX_SESSION_FRAMES: ${MAX_SESSION_FRAMES:-100000}
+      MAX_RECORDING_MB: ${MAX_RECORDING_MB:-2048}
+      ALLOW_PT_UPLOAD: ${ALLOW_PT_UPLOAD:-false}
+      ENABLE_RTSP: ${ENABLE_RTSP:-false}
+      RTSP_ALLOWED_HOSTS: ${RTSP_ALLOWED_HOSTS:-}
+      CONFIDENCE_THRESHOLD: ${CONFIDENCE_THRESHOLD:-0.60}
+      IOU_THRESHOLD: ${IOU_THRESHOLD:-0.45}
+    volumes:
+      - vision_data:/app/data
+      - vision_models:/app/models
+      - ./backend/models:/opt/model-seed:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: dronevision
+      POSTGRES_USER: dronevision
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local_dronevision_change_me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dronevision -d dronevision"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+volumes:
+  vision_data:
+  postgres_data:
+  vision_models:

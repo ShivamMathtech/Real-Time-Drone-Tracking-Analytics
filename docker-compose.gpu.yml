@@ -1,0 +1,18 @@
+# Select a CUDA wheel index compatible with your driver and the pinned torch version.
+# Override TORCH_GPU_INDEX_URL if a different index is required.
+services:
+  backend:
+    build:
+      args:
+        TORCH_INDEX_URL: ${TORCH_GPU_INDEX_URL:-https://download.pytorch.org/whl/cu130}
+    environment:
+      DEVICE: auto
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
